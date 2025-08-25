@@ -1,0 +1,90 @@
+[gd_scene load_steps=4 format=3 uid="uid://c3iavi5yymwrq"]
+
+[ext_resource type="Script" uid="uid://dpbmpiyh1o32p" path="res://scripts/ui/main_menu.gd" id="1_1g8jr"]
+[ext_resource type="Texture2D" uid="uid://j7synv7d4o6e" path="res://assets/images/background/provisional_background.png" id="1_fe2o3"]
+[ext_resource type="AudioStream" uid="uid://qb3vfmakg2j1" path="res://assets/music/main_theme.mp3" id="1_sl1te"]
+
+[node name="main_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1g8jr")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_fe2o3")
+stretch_mode = 6
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PnlConFondo" type="PanelContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/PnlConFondo"]
+layout_mode = 2
+
+[node name="VBbotones" type="VBoxContainer" parent="MarginContainer/PnlConFondo/CenterContainer"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="titulo_lbl" type="Label" parent="MarginContainer/PnlConFondo/CenterContainer/VBbotones"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Untitled 3D Horror Game"
+horizontal_alignment = 1
+
+[node name="nuevo_juego_btn" type="Button" parent="MarginContainer/PnlConFondo/CenterContainer/VBbotones"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Nuevo juego"
+
+[node name="cargar_juego_btn" type="Button" parent="MarginContainer/PnlConFondo/CenterContainer/VBbotones"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Cargar partida"
+
+[node name="ajustes_btn" type="Button" parent="MarginContainer/PnlConFondo/CenterContainer/VBbotones"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Ajustes"
+
+[node name="salir_btn" type="Button" parent="MarginContainer/PnlConFondo/CenterContainer/VBbotones"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Salir"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PnlConFondo"]
+layout_mode = 2
+size_flags_vertical = 8
+alignment = 2
+
+[node name="version_label" type="Label" parent="MarginContainer/PnlConFondo/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "V0.1.0"
+
+[node name="musica" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_sl1te")
+autoplay = true
+bus = &"Music"
