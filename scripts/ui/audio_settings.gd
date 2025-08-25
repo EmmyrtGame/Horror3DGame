@@ -1,6 +1,6 @@
 extends Control
 
-signal settings_applied
+signal settings_changed(has_changes: bool)
 
 # Referencias a sliders
 @onready var music_slider: HSlider = %music_slider
@@ -28,45 +28,58 @@ func _ready() -> void:
 	sfx_bus_idx = AudioServer.get_bus_index("SFX")
 	master_bus_idx = AudioServer.get_bus_index("Master")
 	
-	# Carga los volumenes actuales (default)
-	_load_current_volumes()
+	# Cargar valores desde GameSettings (no desde AudioServer)
+	_load_settings_from_config()
 	
 	music_slider.value_changed.connect(_on_music_volume_changed)
 	sfx_slider.value_changed.connect(_on_sfx_volume_changed)
 	master_slider.value_changed.connect(_on_master_volume_changed)
 
-func _load_current_volumes() -> void:
-	# Obtener volúmenes actuales de AudioServer y convertir a valores lineales
-	if music_bus_idx >= 0:
-		var db_value = AudioServer.get_bus_volume_db(music_bus_idx)
-		applied_music_volume = db_to_linear(db_value)
-		temp_music_volume = applied_music_volume
-		music_slider.value = applied_music_volume
-	if sfx_bus_idx >= 0:
-		var db_value = AudioServer.get_bus_volume_db(sfx_bus_idx)
-		applied_sfx_volume = db_to_linear(db_value)
-		temp_sfx_volume = applied_sfx_volume
-		sfx_slider.value = applied_sfx_volume
-	if master_bus_idx >= 0:
-		var db_value = AudioServer.get_bus_volume_db(master_bus_idx)
-		applied_master_volume = db_to_linear(db_value)
-		temp_master_volume = applied_master_volume
-		master_slider.value = applied_master_volume
+func _load_settings_from_config() -> void:
+	# Cargar desde GameSettings, no desde AudioServer actual
+	applied_music_volume = GameSettings.get_music_volume()
+	applied_sfx_volume = GameSettings.get_sfx_volume()
+	applied_master_volume = GameSettings.get_master_volume()
+
+	# Inicializar valores temporales
+	temp_music_volume = applied_music_volume
+	temp_sfx_volume = applied_sfx_volume
+	temp_master_volume = applied_master_volume
+
+	# Actualizar sliders
+	music_slider.value = applied_music_volume
+	sfx_slider.value = applied_sfx_volume
+	master_slider.value = applied_master_volume
+
+	# Sin cambios al inicio
+	_check_for_changes()
 
 func _on_music_volume_changed(value: float) -> void:
 	temp_music_volume = value
 	if music_bus_idx >= 0:
 		AudioServer.set_bus_volume_db(music_bus_idx, linear_to_db(value))
+	_check_for_changes()
 
 func _on_sfx_volume_changed(value: float) -> void:
 	temp_sfx_volume = value
 	if sfx_bus_idx >= 0:
 		AudioServer.set_bus_volume_db(sfx_bus_idx, linear_to_db(value))
+	_check_for_changes()
 
 func _on_master_volume_changed(value: float) -> void:
 	temp_master_volume = value
 	if master_bus_idx >= 0:
 		AudioServer.set_bus_volume_db(master_bus_idx, linear_to_db(value))
+	_check_for_changes()
+
+func _check_for_changes() -> void:
+	# Comparar valores temporales con aplicados
+	var has_changes = (
+		not is_equal_approx(temp_music_volume, applied_music_volume) or
+		not is_equal_approx(temp_sfx_volume, applied_sfx_volume) or
+		not is_equal_approx(temp_master_volume, applied_master_volume)
+	)
+	emit_signal("settings_changed", has_changes)
 
 func set_permanent_changes() -> void:
 	# Guardar en ConfigFile, NO en ProjectSettings
@@ -77,6 +90,7 @@ func set_permanent_changes() -> void:
 	applied_music_volume = temp_music_volume
 	applied_sfx_volume = temp_sfx_volume
 	applied_master_volume = temp_master_volume
+	emit_signal("settings_changed", false)
 	emit_signal("settings_applied")
 
 func restore_applied_volumes() -> void:
@@ -92,3 +106,11 @@ func restore_applied_volumes() -> void:
 	music_slider.value = applied_music_volume  
 	sfx_slider.value = applied_sfx_volume
 	master_slider.value = applied_master_volume
+	
+	# Restaurar valores temporales
+	temp_music_volume = applied_music_volume
+	temp_sfx_volume = applied_sfx_volume
+	temp_master_volume = applied_master_volume
+	
+	#sin cambios tras guardar
+	emit_signal("settings_changed", false)
