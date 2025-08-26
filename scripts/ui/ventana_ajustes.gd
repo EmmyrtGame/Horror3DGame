@@ -1,56 +1,68 @@
 class_name SettingsWindow
 extends Window
 
-@onready var btn_aplicar: Button = %aplicar_btn
-@onready var audio_settings: Control = %Audio
-@onready var unsaved_dialog: ConfirmationDialog = $ConfirmacionDeCambios
+@onready var apply_btn: Button = %aplicar_btn
+@onready var cancel_btn: Button = %salir_btn
+@onready var tab_container: TabContainer = %TabContainer
+@onready var unsaved_dialog: ConfirmationDialog = %ConfirmacionDeCambios
 
-var has_unsaved_changes: bool = false
+var settings_panels: Array[Control] = []
+var has_unsaved_changes := false
 
 func _ready() -> void:
-	audio_settings.connect("settings_changed", _on_settings_changed)
+	_collect_settings_panels()
+	_connect_panel_signals()
+	
+	apply_btn.pressed.connect(_on_apply_pressed)
+	cancel_btn.pressed.connect(_on_cancel_pressed)
 
-func open_modal() -> void:
-	btn_aplicar.disabled = true
+func _collect_settings_panels() -> void:
+	for child in tab_container.get_children():
+		if child.has_signal("has_changes_updated"):
+			settings_panels.append(child)
+
+func _connect_panel_signals() -> void:
+	for panel in settings_panels:
+		panel.has_changes_updated.connect(_on_panel_changes_updated)
+
+func _on_panel_changes_updated(_has_changes: bool) -> void:
+	_update_buttons_state()
+
+func _update_buttons_state() -> void:
 	has_unsaved_changes = false
-	# Abre centrada y limitada al tamaño de la ventana padre
-	popup_centered_clamped()
-	# Dar tiempo a que aparezca y enfocar el primer control
-	await get_tree().process_frame
+	for panel in settings_panels:
+		if panel.has_method("has_changes") and panel.has_changes():
+			has_unsaved_changes = true
+			break
+	
+	apply_btn.disabled = not has_unsaved_changes
 
-func _on_settings_changed(has_changes: bool) -> void:
-	# Activar/desactivar botón aplicar según cambios
-	btn_aplicar.disabled = not has_changes
-	has_unsaved_changes = has_changes
-
-func _on_aplicar_btn_pressed() -> void:
-	audio_settings.call("set_permanent_changes")
-	btn_aplicar.disabled = true
+func _on_apply_pressed() -> void:
+	for panel in settings_panels:
+		if panel.has_method("apply_changes"):
+			panel.apply_changes()
+	
 	has_unsaved_changes = false
+	_update_buttons_state()
 
-func _on_salir_btn_pressed() -> void:
-	_attempt_to_close()
+func _on_cancel_pressed() -> void:
+	_attempt_close()
 
 func _on_close_requested() -> void:
-	_attempt_to_close()
+	_attempt_close()
 
-func _attempt_to_close() -> void:
+func _attempt_close() -> void:
 	if has_unsaved_changes:
-		# Mostrar diálogo de confirmación
 		unsaved_dialog.popup_centered()
 	else:
-		# Cerrar directamente si no hay cambios
-		_close_window()
+		hide()
 
-func _on_confirmacion_de_cambios_confirmed() -> void:
-	_close_window()
-
-func _on_confirmacion_de_cambios_canceled() -> void:
-	pass # Cancelamos el proceso
-
-func _close_window() -> void:
-	# Restaurar valores solo si hay cambios no guardados
-	if has_unsaved_changes:
-		audio_settings.call("restore_applied_volumes")
-	has_unsaved_changes = false
+func _on_unsaved_dialog_confirmed() -> void:
+	for panel in settings_panels:
+		if panel.has_method("discard_changes"):
+			panel.discard_changes()
 	hide()
+
+func open_modal() -> void:
+	popup_centered_clamped()
+	_update_buttons_state()

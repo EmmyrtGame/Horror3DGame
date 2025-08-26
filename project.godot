@@ -23,7 +23,7 @@ master_volume=1.0
 
 [autoload]
 
-GameSettings="*res://scripts/autoload/game_settings.gd"
+SettingsManager="*res://scripts/autoload/settings_manager.gd"
 
 [display]
 

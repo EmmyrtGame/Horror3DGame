@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://vinx5kx7oofo"]
+[gd_scene load_steps=4 format=3 uid="uid://vinx5kx7oofo"]
 
 [ext_resource type="Script" uid="uid://bomkjc01lyknf" path="res://scripts/ui/ventana_ajustes.gd" id="1_kvycc"]
 [ext_resource type="Script" uid="uid://cnqtowmnr7at6" path="res://scripts/ui/audio_settings.gd" id="2_4ymo1"]
+[ext_resource type="Script" uid="uid://ca3vpccqmpinv" path="res://scripts/components/setting_slider.gd" id="3_wsjhf"]
 
 [node name="VentanaAjustes" type="Window"]
 title = "Ajustes"
@@ -26,6 +27,7 @@ grow_vertical = 2
 layout_mode = 2
 
 [node name="TabContainer" type="TabContainer" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 current_tab = 2
@@ -69,6 +71,8 @@ layout_mode = 2
 max_value = 1.0
 step = 0.01
 value = 1.0
+script = ExtResource("3_wsjhf")
+metadata/_custom_type_script = "uid://ca3vpccqmpinv"
 
 [node name="Maximo" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/Audio/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -92,6 +96,8 @@ layout_mode = 2
 max_value = 1.0
 step = 0.01
 value = 1.0
+script = ExtResource("3_wsjhf")
+metadata/_custom_type_script = "uid://ca3vpccqmpinv"
 
 [node name="Maximo" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/Audio/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
@@ -115,6 +121,8 @@ layout_mode = 2
 max_value = 1.0
 step = 0.01
 value = 1.0
+script = ExtResource("3_wsjhf")
+metadata/_custom_type_script = "uid://ca3vpccqmpinv"
 
 [node name="Maximo" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/Audio/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
@@ -137,11 +145,13 @@ disabled = true
 text = "Aplicar"
 
 [node name="salir_btn" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 48)
 layout_mode = 2
 text = "Volver"
 
 [node name="ConfirmacionDeCambios" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
 title = "Cambios sin guardar"
 size = Vector2i(440, 100)
 ok_button_text = "Salir sin guardar"
