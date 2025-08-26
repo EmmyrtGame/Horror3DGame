@@ -88,3 +88,6 @@ text = "V0.1.0"
 stream = ExtResource("1_sl1te")
 autoplay = true
 bus = &"Music"
+
+[connection signal="pressed" from="MarginContainer/PnlConFondo/CenterContainer/VBbotones/ajustes_btn" to="." method="_on_ajustes_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/PnlConFondo/CenterContainer/VBbotones/salir_btn" to="." method="_on_salir_btn_pressed"]

@@ -141,6 +141,15 @@ custom_minimum_size = Vector2(100, 48)
 layout_mode = 2
 text = "Volver"
 
+[node name="ConfirmacionDeCambios" type="ConfirmationDialog" parent="."]
+title = "Cambios sin guardar"
+size = Vector2i(440, 100)
+ok_button_text = "Salir sin guardar"
+dialog_text = "Tienes cambios sin guardar. ¿Quieres salir sin guardar?"
+cancel_button_text = "Cancelar"
+
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/aplicar_btn" to="." method="_on_aplicar_btn_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/salir_btn" to="." method="_on_salir_btn_pressed"]
+[connection signal="canceled" from="ConfirmacionDeCambios" to="." method="_on_confirmacion_de_cambios_canceled"]
+[connection signal="confirmed" from="ConfirmacionDeCambios" to="." method="_on_confirmacion_de_cambios_confirmed"]

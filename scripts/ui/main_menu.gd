@@ -7,12 +7,12 @@ const ESCENA_AJUSTES := preload("res://scenes/ui/ventana_ajustes.tscn")
 
 var ventana_ajustes: Window
 
-func _ready() -> void:
-	btn_ajustes.pressed.connect(_on_settings_pressed)
-
-func _on_settings_pressed() -> void:
+func _on_ajustes_btn_pressed() -> void:
 	if ventana_ajustes == null:
 		ventana_ajustes = ESCENA_AJUSTES.instantiate()
 		add_child(ventana_ajustes)
-		ventana_ajustes.close_requested.connect(func(): ventana_ajustes.hide())
 	ventana_ajustes.call("open_modal")
+
+
+func _on_salir_btn_pressed() -> void:
+	get_tree().quit()

@@ -91,7 +91,6 @@ func set_permanent_changes() -> void:
 	applied_sfx_volume = temp_sfx_volume
 	applied_master_volume = temp_master_volume
 	emit_signal("settings_changed", false)
-	emit_signal("settings_applied")
 
 func restore_applied_volumes() -> void:
 	# Restaurar valores en AudioServer
