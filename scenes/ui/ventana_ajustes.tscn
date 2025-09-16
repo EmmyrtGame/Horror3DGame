@@ -161,5 +161,4 @@ cancel_button_text = "Cancelar"
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/aplicar_btn" to="." method="_on_aplicar_btn_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/salir_btn" to="." method="_on_salir_btn_pressed"]
-[connection signal="canceled" from="ConfirmacionDeCambios" to="." method="_on_confirmacion_de_cambios_canceled"]
 [connection signal="confirmed" from="ConfirmacionDeCambios" to="." method="_on_confirmacion_de_cambios_confirmed"]

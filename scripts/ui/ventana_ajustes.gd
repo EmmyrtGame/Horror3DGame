@@ -57,12 +57,13 @@ func _attempt_close() -> void:
 	else:
 		hide()
 
-func _on_unsaved_dialog_confirmed() -> void:
+func open_modal() -> void:
+	popup_centered_clamped()
+	_update_buttons_state()
+
+
+func _on_confirmacion_de_cambios_confirmed() -> void:
 	for panel in settings_panels:
 		if panel.has_method("discard_changes"):
 			panel.discard_changes()
 	hide()
-
-func open_modal() -> void:
-	popup_centered_clamped()
-	_update_buttons_state()
