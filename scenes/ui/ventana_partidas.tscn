@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://waj80d0xwo24"]
+
+[ext_resource type="Script" uid="uid://c505lb40rqrrb" path="res://scripts/ui/save_game_window.gd" id="1_woj03"]
+[ext_resource type="PackedScene" uid="uid://ba8dac4vv3ldm" path="res://scenes/ui/save_game_panel.tscn" id="2_dl87k"]
+
+[node name="SaveGameWindow" type="Window"]
+initial_position = 1
+size = Vector2i(900, 650)
+script = ExtResource("1_woj03")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="save_panel" parent="MarginContainer/VBoxContainer" instance=ExtResource("2_dl87k")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="nuevo_juego_btn" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Nuevo juego"
+
+[node name="cargar_btn" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Cargar"
+
+[node name="cerrar_btn" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Cerrar"

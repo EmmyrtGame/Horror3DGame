@@ -69,7 +69,7 @@ func set_setting(category: String, key: String, value) -> void:
 	emit_signal("setting_changed", category, key, value)
 
 func save_all_settings() -> void:
-	var err := config.save(SETTINGS_PATH)
+	var _err := config.save(SETTINGS_PATH)
 
 func apply_category(category: String) -> void:
 	if category == "audio":

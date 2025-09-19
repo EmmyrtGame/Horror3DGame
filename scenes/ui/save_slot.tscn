@@ -1,0 +1,101 @@
+[gd_scene load_steps=4 format=3 uid="uid://qambs12gse1p"]
+
+[ext_resource type="Script" uid="uid://bcrs8vxqlwjne" path="res://scripts/ui/save_slot.gd" id="1_tk20w"]
+[ext_resource type="Texture2D" uid="uid://byffeo8oe4fv" path="res://assets/images/captura-ejemplo.jpg" id="2_l5iig"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tk20w"]
+bg_color = Color(0.227451, 0.227451, 0.227451, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.333333, 0.333333, 0.333333, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="SaveSlot" type="Control"]
+custom_minimum_size = Vector2(600, 100)
+layout_mode = 3
+anchor_right = 0.312
+anchor_bottom = 0.093
+offset_right = 0.959961
+offset_bottom = -0.440002
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+script = ExtResource("1_tk20w")
+
+[node name="SlotContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="MainContainer" type="PanelContainer" parent="SlotContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tk20w")
+
+[node name="MarginContainer" type="MarginContainer" parent="SlotContainer/MainContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="MainHBox" type="HBoxContainer" parent="SlotContainer/MainContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="slot_button" type="Button" parent="SlotContainer/MainContainer/MarginContainer/MainHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Slot 1"
+
+[node name="InfoVBox" type="VBoxContainer" parent="SlotContainer/MainContainer/MarginContainer/MainHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/separation = 4
+
+[node name="level_label" type="Label" parent="SlotContainer/MainContainer/MarginContainer/MainHBox/InfoVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Abandoned Hospital (ejemplo)"
+
+[node name="playtime_label" type="Label" parent="SlotContainer/MainContainer/MarginContainer/MainHBox/InfoVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Tiempo jugado: 02:30:45"
+
+[node name="timestamp_label" type="Label" parent="SlotContainer/MainContainer/MarginContainer/MainHBox/InfoVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "2025/09/16 17:20"
+
+[node name="screenshot_rect" type="TextureRect" parent="SlotContainer/MainContainer/MarginContainer/MainHBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 60)
+layout_mode = 2
+texture = ExtResource("2_l5iig")
+expand_mode = 3
+stretch_mode = 6
+
+[node name="delete_button" type="Button" parent="SlotContainer/MainContainer/MarginContainer/MainHBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+tooltip_text = "Eliminar partida"
+theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 0.4, 0.4, 1)
+theme_override_colors/font_pressed_color = Color(0.8, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "×"

@@ -24,6 +24,8 @@ master_volume=1.0
 [autoload]
 
 SettingsManager="*res://scripts/autoload/settings_manager.gd"
+SaveManager="*res://scripts/autoload/save_manager.gd"
+TestSaveManager="*res://scripts/autoload/test_save_manager.gd"
 
 [display]
 

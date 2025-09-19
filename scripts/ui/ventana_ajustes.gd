@@ -2,7 +2,7 @@ class_name SettingsWindow
 extends Window
 
 @onready var apply_btn: Button = %aplicar_btn
-@onready var cancel_btn: Button = %salir_btn
+@onready var salir_btn: Button = %salir_btn
 @onready var tab_container: TabContainer = %TabContainer
 @onready var unsaved_dialog: ConfirmationDialog = %ConfirmacionDeCambios
 
@@ -12,9 +12,6 @@ var has_unsaved_changes := false
 func _ready() -> void:
 	_collect_settings_panels()
 	_connect_panel_signals()
-	
-	apply_btn.pressed.connect(_on_apply_pressed)
-	cancel_btn.pressed.connect(_on_cancel_pressed)
 
 func _collect_settings_panels() -> void:
 	for child in tab_container.get_children():
@@ -37,7 +34,7 @@ func _update_buttons_state() -> void:
 	
 	apply_btn.disabled = not has_unsaved_changes
 
-func _on_apply_pressed() -> void:
+func _on_aplicar_btn_pressed() -> void:
 	for panel in settings_panels:
 		if panel.has_method("apply_changes"):
 			panel.apply_changes()
@@ -45,7 +42,7 @@ func _on_apply_pressed() -> void:
 	has_unsaved_changes = false
 	_update_buttons_state()
 
-func _on_cancel_pressed() -> void:
+func _on_salir_btn_pressed() -> void:
 	_attempt_close()
 
 func _on_close_requested() -> void:

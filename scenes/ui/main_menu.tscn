@@ -49,13 +49,22 @@ theme_override_font_sizes/font_size = 50
 text = "Untitled 3D Horror Game"
 horizontal_alignment = 1
 
+[node name="continuar_btn" type="Button" parent="MarginContainer/PnlConFondo/CenterContainer/VBbotones"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Continuar"
+
 [node name="nuevo_juego_btn" type="Button" parent="MarginContainer/PnlConFondo/CenterContainer/VBbotones"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Nuevo juego"
 
 [node name="cargar_juego_btn" type="Button" parent="MarginContainer/PnlConFondo/CenterContainer/VBbotones"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
@@ -74,6 +83,33 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Salir"
 
+[node name="HBoxTesting" type="HBoxContainer" parent="MarginContainer/PnlConFondo/CenterContainer/VBbotones"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/PnlConFondo/CenterContainer/VBbotones/HBoxTesting"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 33
+text = "Botones de testeo:"
+horizontal_alignment = 1
+
+[node name="test_demos_btn" type="Button" parent="MarginContainer/PnlConFondo/CenterContainer/VBbotones/HBoxTesting"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Testear demos"
+
+[node name="test_clear_btn" type="Button" parent="MarginContainer/PnlConFondo/CenterContainer/VBbotones/HBoxTesting"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Limpiar demos"
+
+[node name="test_print_btn" type="Button" parent="MarginContainer/PnlConFondo/CenterContainer/VBbotones/HBoxTesting"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Imprimir demos"
+
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PnlConFondo"]
 layout_mode = 2
 size_flags_vertical = 8
@@ -89,5 +125,11 @@ stream = ExtResource("1_sl1te")
 autoplay = true
 bus = &"Music"
 
+[connection signal="pressed" from="MarginContainer/PnlConFondo/CenterContainer/VBbotones/continuar_btn" to="." method="_on_continuar_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/PnlConFondo/CenterContainer/VBbotones/nuevo_juego_btn" to="." method="_on_nueva_partida_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/PnlConFondo/CenterContainer/VBbotones/cargar_juego_btn" to="." method="_on_cargar_partida_btn_pressed"]
 [connection signal="pressed" from="MarginContainer/PnlConFondo/CenterContainer/VBbotones/ajustes_btn" to="." method="_on_ajustes_btn_pressed"]
 [connection signal="pressed" from="MarginContainer/PnlConFondo/CenterContainer/VBbotones/salir_btn" to="." method="_on_salir_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/PnlConFondo/CenterContainer/VBbotones/HBoxTesting/test_demos_btn" to="." method="_on_test_demos_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/PnlConFondo/CenterContainer/VBbotones/HBoxTesting/test_clear_btn" to="." method="_on_test_clear_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/PnlConFondo/CenterContainer/VBbotones/HBoxTesting/test_print_btn" to="." method="_on_test_print_btn_pressed"]
